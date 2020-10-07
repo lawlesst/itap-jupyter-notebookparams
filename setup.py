@@ -1,17 +1,17 @@
 from setuptools import setup
 
 setup(
-    name='jupyter-notebookparams',
+    name='itap-jupyter-notebookparams',
     version='0.0.4',
     author='Simon Li',
     author_email='spli@dundee.ac.uk',
     packages=[
-        'jupyter_notebookparams',
+        'itap_jupyter_notebookparams',
     ],
-    url='https://github.com/manics/jupyter-notebookparams',
+    url='https://github.com/lawlesst/jupyter-notebookparams',
     license='MIT',
     package_data={
-        'jupyter_notebookparams': ['jupyter_notebookparams/static/main.js'],
+        'itap_jupyter_notebookparams': ['itap_jupyter_notebookparams/static/main.js'],
     },
     description='Pass URL parameters to a Jupyter notebook',
     long_description=open('README.md').read(),
@@ -20,10 +20,10 @@ setup(
         'notebook',
     ],
     data_files=[(
-            'share/jupyter/nbextensions/jupyter-notebookparams', [
-                'jupyter_notebookparams/static/main.js'
+            'share/jupyter/nbextensions/itap-jupyter-notebookparams', [
+                'itap_jupyter_notebookparams/static/main.js'
         ]),
-        ('etc/jupyter/nbconfig/notebook.d' , ['jupyter_notebookparams.json'])
+        ('etc/jupyter/nbconfig/notebook.d' , ['itap_jupyter_notebookparams.json'])
     ],
     zip_safe=False,
     include_package_data=True,
