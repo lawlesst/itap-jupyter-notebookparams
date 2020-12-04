@@ -1,5 +1,5 @@
 {
   "load_extensions": {
-    "jupyter-notebookparams/main": true
+    "itap-jupyter-notebookparams/main": true
   }
 }
