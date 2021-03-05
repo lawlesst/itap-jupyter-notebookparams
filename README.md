@@ -1,4 +1,4 @@
-A Jupyter notebook plugin for (Constellate)[http://tdm-pilot.org]
+A Jupyter notebook plugin for [Constellate](http://tdm-pilot.org)
 
 This plugin was originally based off [Jupyter notebookparams](https://github.com/manics/jupyter-notebookparams).
 
