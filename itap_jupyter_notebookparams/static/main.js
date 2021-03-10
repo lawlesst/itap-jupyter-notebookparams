@@ -114,24 +114,30 @@ define([
     }
 
     function initializeEventLogging() {
+      const searchParams = new URL(window.location.href).searchParams;
+      const dataset_id = searchParams.get("id");
+
       Jupyter.notebook.events.on('kernel_connected.Kernel', function (evt, data) {
         logEvent('notebook-kernel-connect', {
           notebook: Jupyter.notebook.notebook_name,
-          kernel: data.kernel.name
+          kernel: data.kernel.name,
+          dataset_id
         });
       });
 
       Jupyter.notebook.events.on('kernel_disconnected.Kernel', function (evt, data) {
         logEvent('notebook-kernel-disconnect', {
           notebook: Jupyter.notebook.notebook_name,
-          kernel: data.kernel.name
+          kernel: data.kernel.name,
+          dataset_id
         });
       });
 
       Jupyter.notebook.events.on('execute.CodeCell', function (evt, data) {
         logEvent('notebook-cell-execute', {
           notebook: data.cell.notebook.notebook_name,
-          kernel: data.cell.kernel.name
+          kernel: data.cell.kernel.name,
+          dataset_id
         });
       });
     }
