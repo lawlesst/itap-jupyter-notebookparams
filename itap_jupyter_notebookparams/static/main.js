@@ -20,34 +20,61 @@ define([
     const PARAMETERS_MARKER = '# Parameters:';
     var set_parameters = function() {
       const cells = Jupyter.notebook.get_cells();
-      var autorun = false;
+      let autorun = false;
       const searchParams = new URL(window.location.href).searchParams;
+
       const datasetId = searchParams.get("id");
-      var replaced = false;
+      let replacedDid = false;
       if (datasetId) {
-        for (var c = 0; c < cells.length; ++c) {
-          var cellData = cells[c];
+        for (let c = 0; c < cells.length; ++c) {
+          let cellData = cells[c];
           if (cellData.cell_type === "code") {
-            var contents = cellData.get_text();
-            var lines = contents.split(/\r?\n/);
+            let contents = cellData.get_text();
+            let lines = contents.split(/\r?\n/);
             for (l = 0; l < lines.length; l++) {
               const codeLine = lines[l];
               if (codeLine.startsWith("dataset_id")) {
-                var newId = "dataset_id = \"" + datasetId + "\"";
-                var newContents = contents.replace(codeLine, newId);
+                let newId = "dataset_id = \"" + datasetId + "\"";
+                let newContents = contents.replace(codeLine, newId);
                 cellData.set_text(newContents);
-                cellData.code_mirror.addLineClass(l, "background", "codehighlighter");
                 console.log("notebookparams: replaced " + codeLine + " with " + datasetId);
-                replaced = true;
+                replacedDid = true;
                 break;
               }
             }
           }
-          if (replaced != false) {
+          if (replacedDid != false) {
             break;
           }
         }
       }
+
+      const sessionId = searchParams.get("session");
+      let replacedSid = false;
+      if (sessionId) {
+        for (let c = 0; c < cells.length; ++c) {
+          let cellData = cells[c];
+          if (cellData.cell_type === "code") {
+            let contents = cellData.get_text();
+            let lines = contents.split(/\r?\n/);
+            for (l = 0; l < lines.length; l++) {
+              const codeLine = lines[l];
+              if (codeLine.startsWith("session_id")) {
+                const newSessionId = "session_id = \"" + sessionId + "\"";
+                const newContents = contents.replace(codeLine, newSessionId);
+                cellData.set_text(newContents);
+                console.log("notebookparams: replaced " + codeLine + " with " + newSessionId);
+                replacedSid = true;
+                break;
+              }
+            }
+          }
+          if (replacedSid != false) {
+            break;
+          }
+        }
+      }
+
       if (searchParams.get("autorun") == "true") {
         if (Jupyter.notebook.kernel && Jupyter.notebook.kernel.is_connected()) {
           console.log('notebookparams: kernel connected, autorun');
